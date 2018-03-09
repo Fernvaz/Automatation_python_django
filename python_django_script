@@ -1,0 +1,34 @@
+#!/bin/bash/python
+import os
+
+def django_setup():
+  sudo su
+  os.system('yum -y install python-pip')
+  os.system('pip install virtualenv')
+  os.system('pip install --upgrade pip')
+  os.system('mkdir /opt/django')
+  os.chdir('/opt/django')
+  os.system('sudo useradd jfernando_vazquez')
+
+  os.system('yum -y install epel-release')
+  os.system('yum -y install python34 python-pip')
+
+def django_install():
+  os.system('virtualenv -p python3 django')
+  os.chdir('/opt/django/django')
+  os.system('source bin/activate')
+  os.system('pip install django")
+  os.system('django-admin startproject project1')
+  os.chdir ('..')
+  os.system('chown -R jfernando_vazquez django')
+
+
+  os.system('myip=$( curl ifconfig.co ) && sed -i "s/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS =  \[\'"$myip"\'\]/g" /opt/django/django/project1/project1/settings.py')
+
+  def django_start():
+  os.chdir('/opt/django/django')
+  os.system('sudo -u tjfernando_vazquez -E sh -c "source /opt/django/django/bin/activate && /opt/django/django/project1/manage.py runserver 0.0.0.0:8000&"')
+
+  django_setup()
+  django_install()
+  django_start()
